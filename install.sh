@@ -43,6 +43,13 @@ mkdir -p $TOOLSDIR
 mkdir -p $USERDIR/.config
 cd $TOOLSDIR
 
+
+######################
+# Enabling RPM Fusion
+######################
+logMe "Enabling RPM Fusion"
+dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
 ######################
 # Optimize DNF
 ######################
@@ -56,7 +63,9 @@ dnf upgrade --refresh -y
 # Installing necessary packages
 ######################
 logMe "Installing sway and other prerequisites"
-dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc
+dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc appstream-data
+dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+dnf groupupdate sound-and-video
 
 ######################
 # If running in qemu then set the correct variables to run sway
@@ -82,7 +91,6 @@ make install-systemd
 
 # customizing emptty
 sed -ir "s/^[#]*\s*TTY_NUMBER=.*/TTY_NUMBER=1/" /etc/emptty/conf
-sed -ir "s/^[#]*\s*PRINT_ISSUE=.*/PRINT_ISSUE=false/" /etc/emptty/conf
 sed -ir "s/^[#]*\s*PRINT_ISSUE=.*/PRINT_ISSUE=false/" /etc/emptty/conf
 sed -ir "s/^[#]*\s*DYNAMIC_MOTD=.*/DYNAMIC_MOTD=true/" /etc/emptty/conf
 sed -ir "s/^[#]*\s*DYNAMIC_MOTD_PATH=.*/DYNAMIC_MOTD_PATH=\/usr\/bin\/neofetch/" /etc/emptty/conf
@@ -121,7 +129,7 @@ if hostnamectl | grep -q "Chassis: laptop"; then
 fi
 
 # recursively fix ownership for .config directory
-chown -R $SUDO_USER:$SUDO_USER $USERDIR/.config
+chown -R $SUDO_USER:$SUDO_USER $USERDIR
 
 logMe "[INFO] Installation completed! press any key to reboot"
 read -p ""
