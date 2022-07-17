@@ -90,7 +90,6 @@ make install-config
 make install-systemd
 
 # customizing emptty
-sed -ir "s/^[#]*\s*TTY_NUMBER=.*/TTY_NUMBER=1/" /etc/emptty/conf
 sed -ir "s/^[#]*\s*PRINT_ISSUE=.*/PRINT_ISSUE=false/" /etc/emptty/conf
 sed -ir "s/^[#]*\s*DYNAMIC_MOTD=.*/DYNAMIC_MOTD=true/" /etc/emptty/conf
 sed -ir "s/^[#]*\s*DYNAMIC_MOTD_PATH=.*/DYNAMIC_MOTD_PATH=\/usr\/bin\/neofetch/" /etc/emptty/conf
