@@ -1,10 +1,14 @@
 #!/bin/bash
+
+# Author lucapxl 
+# Date  2022-07-17
+
 ######################
 # Edit these variables to customize your installation
 # packages that will be installed additionally to sway and QmlGreet
 PACKAGES="firefox thefuck tldr blueman"
+######################
 
-##################################################################
 
 ######################
 # Defining some variables needed during the installation
@@ -25,9 +29,12 @@ if [[ -z "$SUDO_USER" ]]; then
   exit
 fi
 
-
+######################
 # Output function
+######################
 function logMe {
+    echo ""
+    echo ""
     echo "============================================================"
     echo "============================================================"
     echo "==="
@@ -43,12 +50,11 @@ mkdir -p $TOOLSDIR
 mkdir -p $USERDIR/.config
 cd $TOOLSDIR
 
-
 ######################
 # Enabling RPM Fusion
 ######################
 logMe "Enabling RPM Fusion"
-dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 ######################
 # Optimize DNF
@@ -64,8 +70,8 @@ dnf upgrade --refresh -y
 ######################
 logMe "Installing sway and other prerequisites"
 dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc appstream-data
-dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-dnf groupupdate sound-and-video
+dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+dnf groupupdate -y sound-and-video
 
 ######################
 # If running in qemu then set the correct variables to run sway
@@ -89,14 +95,25 @@ make install-pam-fedora
 make install-config
 make install-systemd
 
+######################
 # customizing emptty
+######################
 sed -ir "s/^[#]*\s*PRINT_ISSUE=.*/PRINT_ISSUE=false/" /etc/emptty/conf
 sed -ir "s/^[#]*\s*DYNAMIC_MOTD=.*/DYNAMIC_MOTD=true/" /etc/emptty/conf
-sed -ir "s/^[#]*\s*DYNAMIC_MOTD_PATH=.*/DYNAMIC_MOTD_PATH=\/usr\/bin\/neofetch/" /etc/emptty/conf
+sed -ir "s/^[#]*\s*DYNAMIC_MOTD_PATH=.*/DYNAMIC_MOTD_PATH=\/etc\/emptty\/dynamic-motd.sh/" /etc/emptty/conf
+cat > /etc/emptty/dynamic-motd.sh <<EOL
+#!/bin/bash
+neofetch --logo
+echo ""
+echo ""
+echo "PXL Fedora"
+EOL
 
-# enabling emptty at start
+
+######################
+# enabling emptty at start and switching target to graphical
+######################
 systemctl enable emptty
-# switching target to graphical
 systemctl set-default graphical.target
 # to revert to the tty login
 # systemctl set-default multi-user.target
@@ -118,7 +135,9 @@ chmod +x $USERDIR/.config/emptty
 logMe "[INFO] Installing some more packages"
 dnf install -y $PACKAGES
 
+######################
 # if running on a laptop, install the CPU frequency tool
+######################
 if hostnamectl | grep -q "Chassis: laptop"; then
     logMe "[INFO] Running on laptop, installing cpufreq tool"
     dnf install -y python-devel dmidecode
@@ -127,7 +146,9 @@ if hostnamectl | grep -q "Chassis: laptop"; then
     cd auto-cpufreq && ./auto-cpufreq-installer --install
 fi
 
+######################
 # recursively fix ownership for .config directory
+######################
 chown -R $SUDO_USER:$SUDO_USER $USERDIR
 
 logMe "[INFO] Installation completed! press any key to reboot"
