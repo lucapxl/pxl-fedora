@@ -1,4 +1,4 @@
-# my Fedora installation and configuration 
+# my Fedora installation and configuration
 
 install minimal fedora (F36). From the packages selector select: xxx xxx
 
