@@ -25,6 +25,17 @@ if [[ -z "$SUDO_USER" ]]; then
   exit
 fi
 
+
+# Output function
+function logMe {
+    echo "============================================================"
+    echo "============================================================"
+    echo "===" $1
+    echo "============================================================"
+    echo "============================================================"
+    sleep 3
+}
+
 # creating necessary folders
 mkdir -p $TOOLSDIR
 mkdir -p $USERDIR/.config
@@ -33,7 +44,7 @@ cd $TOOLSDIR
 ######################
 # Optimize DNF
 ######################
-echo -e "[INFO] Optimizing DNF" ; sleep 2
+logMe "Optimizing DNF"
 dnf upgrade --refresh -y
 echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf
 echo "fastestmirror=True" >> /etc/dnf/dnf.conf
@@ -42,14 +53,14 @@ dnf upgrade --refresh -y
 ######################
 # Install sway
 ######################
-echo -e "[INFO] Installing sway and other prerequisites" ; sleep 2
+logMe "Installing sway and other prerequisites"
 dnf install -y sway waybar swaylock polkit
 
 ######################
 # If running in qemu then set the correct variables to run sway
 ######################
 if hostnamectl | grep -q "Virtualization: kvm"; then
-    echo -e "[INFO] Running on QEMU VM. configuring settings to run sway correctly" ; sleep 2
+    logMe "[INFO] Running on QEMU VM. configuring settings to run sway correctly"
     echo "export LIBGL_ALWAYS_SOFTWARE=true" >> $USERDIR/.bashrc
     echo "export WLR_NO_HARDWARE_CURSORS=1" >> $USERDIR/.bashrc
 fi
@@ -57,8 +68,8 @@ fi
 ######################
 # Install emptty
 ######################
-echo -e "[INFO] Installing emptty" ; sleep 2
-dnf install golang-go pam-devel libX11-devel gcc
+logMe "[INFO] Installing emptty"
+dnf install -y golang-go pam-devel libX11-devel gcc
 cd $TOOLSDIR
 git clone https://github.com/tvrzna/emptty.git
 cd emptty
@@ -68,9 +79,14 @@ make install-pam-fedora
 make install-config
 make install-systemd
 
-systemctl enable emptty.service
+# enabling emptty at start
+systemctl enable emptty
+# switching target to graphical
+systemctl set-default graphical.target
+# to revert to the tty login
+# systemctl set-default multi-user.target
 
-echo -e "[INFO] Configuring emptty" ; sleep 2
+logMe "[INFO] Configuring emptty"
 cat > $USERDIR/.config/emptty <<EOL
 #!/bin/bash
 Environment=wayland
@@ -79,25 +95,26 @@ Environment=wayland
 /usr/bin/sway
 EOL
 
-chmod +x $USERDIR/.config/runsway.sh
-chown -r $SUDO_USER:$SUDO_USER $USERDIR/.config
-
+chmod +x $USERDIR/.config/emptty
 
 ######################
 # Install some packages
 ######################
-echo -e "[INFO] Installing some more packages" ; sleep 2
+logMe "[INFO] Installing some more packages"
 dnf install -y $PACKAGES
 
 # if running on a laptop, install the CPU frequency tool
 if hostnamectl | grep -q "Chassis: laptop"; then
-    echo -e "[INFO] Running on laptop, installing cpufreq tool" ; sleep 2
+    logMe "[INFO] Running on laptop, installing cpufreq tool"
     dnf install -y python-devel dmidecode
     cd $TOOLSDIR
     git clone https://github.com/AdnanHodzic/auto-cpufreq.git
     cd auto-cpufreq && ./auto-cpufreq-installer --install
 fi
 
+# recursively fix ownership for .config directory
+chown -R $SUDO_USER:$SUDO_USER $USERDIR/.config
 
-echo -e "[INFO] Installation completed! rebooting" ; sleep 2
+logMe "[INFO] Installation completed! press any key to "
+read -p ""
 systemctl reboot
