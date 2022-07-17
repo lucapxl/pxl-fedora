@@ -21,11 +21,13 @@ if [ "$EUID" -ne 0 ]
 fi
 
 if [[ -z "$SUDO_USER" ]]; then
-  then echo "Please run with sudo from your user, not from the root user directly"
+  echo "Please run with sudo from your user, not from the root user directly"
   exit
 fi
 
+# creating necessary folders
 mkdir -p $TOOLSDIR
+mkdir -p $USERDIR/.config
 cd $TOOLSDIR
 
 ######################
@@ -56,7 +58,7 @@ fi
 # Install emptty
 ######################
 echo -e "[INFO] Installing emptty" ; sleep 2
-dnf install swgolang-go pam-devel gcc gcc-c++ cmake
+dnf install golang-go pam-devel libX11-devel gcc gcc-c++ cmake
 cd $TOOLSDIR
 git clone https://github.com/tvrzna/emptty.git
 cd emptty
@@ -65,6 +67,8 @@ make install
 make install-pam-fedora
 make install-config
 make install-systemd
+
+systemctl enable emptty.service
 
 echo -e "[INFO] Configuring emptty" ; sleep 2
 cat > $USERDIR/.config/emptty <<EOL
