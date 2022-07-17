@@ -58,7 +58,7 @@ fi
 # Install emptty
 ######################
 echo -e "[INFO] Installing emptty" ; sleep 2
-dnf install golang-go pam-devel libX11-devel gcc gcc-c++ cmake
+dnf install golang-go pam-devel libX11-devel gcc
 cd $TOOLSDIR
 git clone https://github.com/tvrzna/emptty.git
 cd emptty
