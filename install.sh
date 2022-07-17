@@ -30,7 +30,9 @@ fi
 function logMe {
     echo "============================================================"
     echo "============================================================"
+    echo "==="
     echo "===" $1
+    echo "==="
     echo "============================================================"
     echo "============================================================"
     sleep 3
@@ -51,10 +53,10 @@ echo "fastestmirror=True" >> /etc/dnf/dnf.conf
 dnf upgrade --refresh -y
 
 ######################
-# Install sway
+# Installing necessary packages
 ######################
 logMe "Installing sway and other prerequisites"
-dnf install -y sway waybar swaylock polkit
+dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc
 
 ######################
 # If running in qemu then set the correct variables to run sway
@@ -69,7 +71,6 @@ fi
 # Install emptty
 ######################
 logMe "[INFO] Installing emptty"
-dnf install -y golang-go pam-devel libX11-devel gcc
 cd $TOOLSDIR
 git clone https://github.com/tvrzna/emptty.git
 cd emptty
@@ -78,6 +79,13 @@ make install
 make install-pam-fedora
 make install-config
 make install-systemd
+
+# customizing emptty
+sed -ir "s/^[#]*\s*TTY_NUMBER=.*/TTY_NUMBER=1/" /etc/emptty/conf
+sed -ir "s/^[#]*\s*PRINT_ISSUE=.*/PRINT_ISSUE=false/" /etc/emptty/conf
+sed -ir "s/^[#]*\s*PRINT_ISSUE=.*/PRINT_ISSUE=false/" /etc/emptty/conf
+sed -ir "s/^[#]*\s*DYNAMIC_MOTD=.*/DYNAMIC_MOTD=true/" /etc/emptty/conf
+sed -ir "s/^[#]*\s*DYNAMIC_MOTD_PATH=.*/DYNAMIC_MOTD_PATH=\/usr\/bin\/neofetch/" /etc/emptty/conf
 
 # enabling emptty at start
 systemctl enable emptty
@@ -115,6 +123,6 @@ fi
 # recursively fix ownership for .config directory
 chown -R $SUDO_USER:$SUDO_USER $USERDIR/.config
 
-logMe "[INFO] Installation completed! press any key to "
+logMe "[INFO] Installation completed! press any key to reboot"
 read -p ""
 systemctl reboot
