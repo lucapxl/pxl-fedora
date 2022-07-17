@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 # optimize DNF
 echo "[INFO] Optimizing DNF"
 sudo dnf upgrade --refresh -y
