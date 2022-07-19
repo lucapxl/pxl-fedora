@@ -69,7 +69,7 @@ dnf upgrade --refresh -y
 # Installing necessary packages
 ######################
 logMe "Installing sway and other prerequisites"
-dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc appstream-data
+dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc appstream-data wofi wdisplays
 dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf groupupdate -y sound-and-video
 
@@ -109,6 +109,7 @@ echo ""
 echo "PXL Fedora"
 EOL
 
+chmod 744 /etc/emptty/dynamic-motd.sh
 
 ######################
 # enabling emptty at start and switching target to graphical
