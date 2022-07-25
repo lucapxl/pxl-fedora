@@ -68,8 +68,15 @@ dnf upgrade --refresh -y
 ######################
 # Installing necessary packages
 ######################
+# Dunst - popup notification tool
+# Light - display brightness tool
+# rofi - application starter - menu
+# wdisplay - display manager for wayland
+# kanshi - profile manager for display settings
+# gammastep - change gamma day/night
+# nemo - file manager
 logMe "Installing sway and other prerequisites"
-dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc appstream-data wofi wdisplays
+dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc appstream-data wofi wdisplays dunst light kanshi alacritty gammastep nemo nextcloud-client-nemo wlogout
 dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf groupupdate -y sound-and-video
 
@@ -148,10 +155,22 @@ if hostnamectl | grep -q "Chassis: laptop"; then
 fi
 
 ######################
+# Download and apply config files
+######################
+logMe "[INFO] applying config files"
+cd $TOOLSDIR
+git clone https://github.com/lucapxl/dotconfig.git
+cd dotconfig/files
+cp -R  $TOOLSDIR/dotconfig/files/* ~/.config/
+
+######################
 # recursively fix ownership for .config directory
 ######################
 chown -R $SUDO_USER:$SUDO_USER $USERDIR
 
+######################
+# all done, rebooting
+######################
 logMe "[INFO] Installation completed! press any key to reboot"
 read -p ""
 systemctl reboot
