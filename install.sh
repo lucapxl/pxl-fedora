@@ -25,6 +25,7 @@ PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor 
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
 PACKAGES=" $PACKAGES light gammastep"                       # Brightness manager and gamma changer
 PACKAGES=" $PACKAGES pavucontrol"                           # audio devices manager
+PACKAGES=" $PACKAGES network-manager-applet"                # network manager
 PACKAGES=" $PACKAGES alacritty nemo nextcloud-client nextcloud-client-nemo"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
 PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode" # prerequisites for installatoin of packages later
 
