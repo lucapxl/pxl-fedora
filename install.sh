@@ -26,7 +26,7 @@ PACKAGES=" $PACKAGES dunst"                                 # Graphical Notifica
 PACKAGES=" $PACKAGES light gammastep"                       # Brightness manager and gamma changer
 PACKAGES=" $PACKAGES pavucontrol"                           # audio devices manager
 PACKAGES=" $PACKAGES alacritty nemo nextcloud-client nextcloud-client-nemo"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
-PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data" # prerequisites for installatoin of packages later
+PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode" # prerequisites for installatoin of packages later
 
 ######################
 # Making sure the user running has root privileges
@@ -166,7 +166,6 @@ chmod +x $USERDIR/.config/emptty
 ######################
 if hostnamectl | grep -q "Chassis: laptop"; then
     logMe "[INFO] Running on laptop, installing cpufreq tool"
-    dnf install -y python-devel dmidecode
     cd $TOOLSDIR
     git clone https://github.com/AdnanHodzic/auto-cpufreq.git
     cd auto-cpufreq && ./auto-cpufreq-installer --install
