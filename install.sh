@@ -6,7 +6,7 @@
 ######################
 # Edit these variables to customize your installation
 # packages that will be installed additionally to sway and QmlGreet
-PACKAGES="firefox thefuck tldr blueman"
+PACKAGES="firefox thefuck tldr blueman neofetch"
 ######################
 
 
@@ -15,6 +15,18 @@ PACKAGES="firefox thefuck tldr blueman"
 ######################
 USERDIR=$(echo "/home/$SUDO_USER")
 TOOLSDIR=$(echo "$USERDIR/_tools")
+
+######################
+# Other Packages required
+######################
+PACKAGES=" $PACKAGES sway waybar swaylock wlogout polkit"   # sway and sway related (bar, lock, logou menu)
+PACKAGES=" $PACKAGES wofi"                                  # Menu for wayland
+PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
+PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
+PACKAGES=" $PACKAGES light gammastep"                       # Brightness manager and gamma changer
+PACKAGES=" $PACKAGES pavucontrol"                           # audio devices manager
+PACKAGES=" $PACKAGES alacritty nemo nextcloud-client nextcloud-client-nemo"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
+PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data" # prerequisites for installatoin of packages later
 
 ######################
 # Making sure the user running has root privileges
@@ -66,17 +78,29 @@ echo "fastestmirror=True" >> /etc/dnf/dnf.conf
 dnf upgrade --refresh -y
 
 ######################
+# Add additional repositories
+######################
+# 1password
+logMe "Adding repositories"
+rpm --import https://downloads.1password.com/linux/keys/1password.asc
+sh -c 'echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo'
+PACKAGES=" $PACKAGES 1password"  # Adding 1password to packages to install
+
+# IVPN
+dnf config-manager --add-repo https://repo.ivpn.net/stable/fedora/generic/ivpn.repo
+PACKAGES=" $PACKAGES ivpn ivpn-ui"  # Adding IVPN to packages to install
+
+# Microsoft Edge and Teams
+rpm --import https://packages.microsoft.com/keys/microsoft.asc
+dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge
+dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/ms-teams
+PACKAGES=" $PACKAGES microsoft-edge-stable teams"  # Adding Microosft Edge and Teams to packages to install
+
+######################
 # Installing necessary packages
 ######################
-# Dunst - popup notification tool
-# Light - display brightness tool
-# rofi - application starter - menu
-# wdisplay - display manager for wayland
-# kanshi - profile manager for display settings
-# gammastep - change gamma day/night
-# nemo - file manager
 logMe "Installing sway and other prerequisites"
-dnf install -y sway waybar swaylock polkit neofetch golang-go pam-devel libX11-devel gcc appstream-data wofi wdisplays dunst light kanshi alacritty gammastep nemo nextcloud-client-nemo wlogout
+dnf install -y $PACKAGES
 dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf groupupdate -y sound-and-video
 
@@ -138,12 +162,6 @@ EOL
 chmod +x $USERDIR/.config/emptty
 
 ######################
-# Install some packages
-######################
-logMe "[INFO] Installing some more packages"
-dnf install -y $PACKAGES
-
-######################
 # if running on a laptop, install the CPU frequency tool
 ######################
 if hostnamectl | grep -q "Chassis: laptop"; then
@@ -161,7 +179,7 @@ logMe "[INFO] applying config files"
 cd $TOOLSDIR
 git clone https://github.com/lucapxl/dotconfig.git
 cd dotconfig/files
-cp -R  $TOOLSDIR/dotconfig/files/* ~/.config/
+cp -R  $TOOLSDIR/dotconfig/files/* $USERDIR/.config/
 
 ######################
 # recursively fix ownership for .config directory
