@@ -26,7 +26,7 @@ PACKAGES=" $PACKAGES dunst"                                 # Graphical Notifica
 PACKAGES=" $PACKAGES light gammastep"                       # Brightness manager and gamma changer
 PACKAGES=" $PACKAGES pavucontrol"                           # audio devices manager
 PACKAGES=" $PACKAGES network-manager-applet"                # network manager
-PACKAGES=" $PACKAGES alacritty nemo nextcloud-client nextcloud-client-nemo"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
+PACKAGES=" $PACKAGES alacritty nautilus nextcloud-client nextcloud-client-nautilus"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
 PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode" # prerequisites for installatoin of packages later
 
 ######################
@@ -73,7 +73,6 @@ dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 # Optimize DNF
 ######################
 logMe "Optimizing DNF"
-dnf upgrade --refresh -y
 echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf
 echo "fastestmirror=True" >> /etc/dnf/dnf.conf
 dnf upgrade --refresh -y
