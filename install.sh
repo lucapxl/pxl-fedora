@@ -18,7 +18,7 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 # Other Packages required
 ######################
-PACKAGES=" $PACKAGES sway waybar swaylock wlogout polkit lxplokit"   # sway and sway related (bar, lock, logou menu)
+PACKAGES=" $PACKAGES sway waybar swaylock wlogout polkit lxpolkit"   # sway and sway related (bar, lock, logou menu)
 PACKAGES=" $PACKAGES wofi"                                  # Menu for wayland
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
