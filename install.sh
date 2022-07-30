@@ -28,7 +28,7 @@ PACKAGES=" $PACKAGES network-manager-applet"                # network manager
 PACKAGES=" $PACKAGES grim slurp"                            # screenshot and region selection tools
 PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
 PACKAGES=" $PACKAGES alacritty nautilus nextcloud-client nextcloud-client-nautilus"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
-PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode" # prerequisites for installatoin of packages later
+PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode make" # prerequisites for installatoin of packages later
 
 ######################
 # Making sure the user running has root privileges
