@@ -9,7 +9,6 @@
 PACKAGES="firefox thefuck tldr blueman neofetch"
 ######################
 
-
 ######################
 # Defining some variables needed during the installation
 ######################
@@ -19,13 +18,15 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 # Other Packages required
 ######################
-PACKAGES=" $PACKAGES sway waybar swaylock wlogout polkit"   # sway and sway related (bar, lock, logou menu)
+PACKAGES=" $PACKAGES sway waybar swaylock wlogout polkit lxplokit"   # sway and sway related (bar, lock, logou menu)
 PACKAGES=" $PACKAGES wofi"                                  # Menu for wayland
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
 PACKAGES=" $PACKAGES light gammastep"                       # Brightness manager and gamma changer
 PACKAGES=" $PACKAGES pavucontrol"                           # audio devices manager
 PACKAGES=" $PACKAGES network-manager-applet"                # network manager
+PACKAGES=" $PACKAGES grim slurp"                            # screenshot and region selection tools
+PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
 PACKAGES=" $PACKAGES alacritty nautilus nextcloud-client nextcloud-client-nautilus"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
 PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode" # prerequisites for installatoin of packages later
 
