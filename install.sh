@@ -91,11 +91,12 @@ PACKAGES=" $PACKAGES 1password"  # Adding 1password to packages to install
 dnf config-manager --add-repo https://repo.ivpn.net/stable/fedora/generic/ivpn.repo
 PACKAGES=" $PACKAGES ivpn ivpn-ui"  # Adding IVPN to packages to install
 
-# Microsoft Edge and Teams
+# Microsoft Edge, Teams and VS Code
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge
 dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/ms-teams
-PACKAGES=" $PACKAGES microsoft-edge-stable teams"  # Adding Microosft Edge and Teams to packages to install
+dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/vscode
+PACKAGES=" $PACKAGES microsoft-edge-stable teams code"  # Adding Microosft Edge and Teams to packages to install
 
 ######################
 # Installing necessary packages
