@@ -6,7 +6,7 @@
 ######################
 # Edit these variables to customize your installation
 # packages that will be installed additionally to sway and QmlGreet
-PACKAGES="firefox thefuck tldr blueman neofetch"
+PACKAGES="firefox thefuck tldr blueman neofetch bash-completion"
 ######################
 
 ######################
