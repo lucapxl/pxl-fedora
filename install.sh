@@ -18,7 +18,8 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 # Other Packages required
 ######################
-PACKAGES=" $PACKAGES sway waybar swaylock wlogout polkit lxpolkit"   # sway and sway related (bar, lock, logou menu)
+PACKAGES=" $PACKAGES sway waybar swaylock wlogout"          # sway and sway related (bar, lock, logou menu)
+PAKCAGES=" $PACKAGES polkit lxpolkit qtkeychain gnome-keyring gnome-keyring-pam seahorse"            # polkit and qtkeychain for 1password and nextcloud
 PACKAGES=" $PACKAGES wofi"                                  # Menu for wayland
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
@@ -27,8 +28,9 @@ PACKAGES=" $PACKAGES pavucontrol"                           # audio devices mana
 PACKAGES=" $PACKAGES network-manager-applet"                # network manager
 PACKAGES=" $PACKAGES grim slurp"                            # screenshot and region selection tools
 PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
+PACKAGES=" $PACKAGES sddm"                                  # login manager
 PACKAGES=" $PACKAGES alacritty nautilus nextcloud-client nextcloud-client-nautilus"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
-PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode make" # prerequisites for installatoin of packages later
+PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar" # prerequisites for installation of packages later
 
 ######################
 # Making sure the user running has root privileges
@@ -103,8 +105,11 @@ PACKAGES=" $PACKAGES microsoft-edge-stable teams code"  # Adding Microosft Edge 
 ######################
 logMe "Installing sway and other prerequisites"
 dnf install -y $PACKAGES
-dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-dnf groupupdate -y sound-and-video
+sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+sudo dnf groupupdate -y sound-and-video
+sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+sudo dnf install -y lame\* --exclude=lame-devel
+sudo dnf group upgrade -y --with-optional Multimedia
 
 ######################
 # If running in qemu then set the correct variables to run sway
@@ -116,52 +121,16 @@ if hostnamectl | grep -q "Virtualization: kvm"; then
 fi
 
 ######################
-# Install emptty
+# enabling gdm at start and switching target to graphical
 ######################
-logMe "[INFO] Installing emptty"
-cd $TOOLSDIR
-git clone https://github.com/tvrzna/emptty.git
-cd emptty
-make build
-make install
-make install-pam-fedora
-make install-config
-make install-systemd
-
-######################
-# customizing emptty
-######################
-sed -ir "s/^[#]*\s*PRINT_ISSUE=.*/PRINT_ISSUE=false/" /etc/emptty/conf
-sed -ir "s/^[#]*\s*DYNAMIC_MOTD=.*/DYNAMIC_MOTD=true/" /etc/emptty/conf
-sed -ir "s/^[#]*\s*DYNAMIC_MOTD_PATH=.*/DYNAMIC_MOTD_PATH=\/etc\/emptty\/dynamic-motd.sh/" /etc/emptty/conf
-cat > /etc/emptty/dynamic-motd.sh <<EOL
-#!/bin/bash
-neofetch --logo
-echo ""
-echo ""
-echo "PXL Fedora"
-EOL
-
-chmod 744 /etc/emptty/dynamic-motd.sh
-
-######################
-# enabling emptty at start and switching target to graphical
-######################
-systemctl enable emptty
+systemctl enable sddm
 systemctl set-default graphical.target
 # to revert to the tty login
 # systemctl set-default multi-user.target
 
-logMe "[INFO] Configuring emptty"
-cat > $USERDIR/.config/emptty <<EOL
-#!/bin/bash
-Environment=wayland
-. /etc/profile
-. ~/.bashrc
-/usr/bin/sway
-EOL
-
-chmod +x $USERDIR/.config/emptty
+#####################
+# Downloading SDDM theme
+#####################
 
 ######################
 # if running on a laptop, install the CPU frequency tool
