@@ -85,11 +85,9 @@ dnf upgrade --refresh -y
 ######################
 logMe "Installing sway and other prerequisites"
 dnf install -y $PACKAGES --skip-unavailable
-sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-sudo dnf groupupdate -y sound-and-video
+dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
-sudo dnf install -y lame\* --exclude=lame-devel
-sudo dnf group upgrade -y Multimedia
+sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
 ######################
 # If running in qemu then set the correct variables to run sway
