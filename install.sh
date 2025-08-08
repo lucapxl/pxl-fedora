@@ -29,7 +29,7 @@ PACKAGES=" $PACKAGES network-manager-applet"                # network manager
 PACKAGES=" $PACKAGES grim slurp"                            # screenshot and region selection tools
 PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
 PACKAGES=" $PACKAGES tuigreet greetd"                       # login manager
-PACKAGES=" $PACKAGES alacritty nautilus nextcloud-client nextcloud-client-nautilus"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
+PACKAGES=" $PACKAGES alacritty foot nautilus nextcloud-client nextcloud-client-nautilus flatpak"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
 PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar" # prerequisites for installation of packages later
 
 ######################
@@ -89,7 +89,7 @@ sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=P
 sudo dnf groupupdate -y sound-and-video
 sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
 sudo dnf install -y lame\* --exclude=lame-devel
-sudo dnf group upgrade -y --with-optional Multimedia
+sudo dnf group upgrade -y Multimedia
 
 ######################
 # If running in qemu then set the correct variables to run sway
@@ -99,6 +99,12 @@ if hostnamectl | grep -q "Virtualization: kvm"; then
     echo "export LIBGL_ALWAYS_SOFTWARE=true" >> $USERDIR/.bashrc
     echo "export WLR_NO_HARDWARE_CURSORS=1" >> $USERDIR/.bashrc
 fi
+
+######################
+# If running in qemu then set the correct variables to run sway
+######################
+logMe "[INFO] Installing Flathub"
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 ######################
 # enabling greetk at start and switching target to graphical
