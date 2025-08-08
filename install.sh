@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author lucapxl 
-# Date  2022-07-17
+# Date  2025-08-08
 
 ######################
 # Edit these variables to customize your installation
@@ -28,9 +28,9 @@ PACKAGES=" $PACKAGES pavucontrol"                           # audio devices mana
 PACKAGES=" $PACKAGES network-manager-applet"                # network manager
 PACKAGES=" $PACKAGES grim slurp"                            # screenshot and region selection tools
 PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
-#PACKAGES=" $PACKAGES sddm"                                  # login manager
+PACKAGES=" $PACKAGES tuigreet greetd"                       # login manager
 PACKAGES=" $PACKAGES alacritty nautilus nextcloud-client nextcloud-client-nautilus"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
-PACKAGES=" $PACKAGES golang-go pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar" # prerequisites for installation of packages later
+PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar" # prerequisites for installation of packages later
 
 ######################
 # Making sure the user running has root privileges
@@ -81,26 +81,6 @@ echo "fastestmirror=True" >> /etc/dnf/dnf.conf
 dnf upgrade --refresh -y
 
 ######################
-# Add additional repositories
-######################
-# 1password
-logMe "Adding repositories"
-rpm --import https://downloads.1password.com/linux/keys/1password.asc
-sh -c 'echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo'
-PACKAGES=" $PACKAGES 1password"  # Adding 1password to packages to install
-
-# IVPN
-dnf config-manager --add-repo https://repo.ivpn.net/stable/fedora/generic/ivpn.repo
-PACKAGES=" $PACKAGES ivpn ivpn-ui"  # Adding IVPN to packages to install
-
-# Microsoft Edge, Teams and VS Code
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
-dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge
-dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/ms-teams
-dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/vscode
-PACKAGES=" $PACKAGES microsoft-edge-stable teams code"  # Adding Microosft Edge and Teams to packages to install
-
-######################
 # Installing necessary packages
 ######################
 logMe "Installing sway and other prerequisites"
@@ -121,16 +101,13 @@ if hostnamectl | grep -q "Virtualization: kvm"; then
 fi
 
 ######################
-# enabling gdm at start and switching target to graphical
+# enabling greetk at start and switching target to graphical
 ######################
-# systemctl enable sddm
-# systemctl set-default graphical.target
+systemctl set-default graphical.target
+systemctl enable greetd
 # to revert to the tty login
 # systemctl set-default multi-user.target
-
-#####################
-# Downloading SDDM theme
-#####################
+sed -i 's/^command.*/command = "tuigreet --cmd sway"/' /etc/greetd/config.toml
 
 ######################
 # if running on a laptop, install the CPU frequency tool
