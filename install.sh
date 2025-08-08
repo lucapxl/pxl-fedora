@@ -107,6 +107,7 @@ flatpak install flathub org.keepassxc.KeePassXC -y
 flatpak install flathub io.github.flattool.Warehouse -y
 flatpak install flathub org.dupot.easyflatpak -y
 flatpak install flathub com.visualstudio.code -y
+flatpak install flathub org.xfce.mousepad -y
 
 ######################
 # enabling greetk at start and switching target to graphical
