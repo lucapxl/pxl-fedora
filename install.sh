@@ -99,10 +99,14 @@ if hostnamectl | grep -q "Virtualization: kvm"; then
 fi
 
 ######################
-# If running in qemu then set the correct variables to run sway
+# Installing flathub and flatpaks
 ######################
 logMe "[INFO] Installing Flathub"
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.keepassxc.KeePassXC -y
+flatpak install flathub io.github.flattool.Warehouse -y
+flatpak install flathub org.dupot.easyflatpak -y
+flatpak install flathub com.visualstudio.code -y
 
 ######################
 # enabling greetk at start and switching target to graphical
