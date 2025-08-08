@@ -6,7 +6,7 @@
 ######################
 # Edit these variables to customize your installation
 # packages that will be installed additionally to sway and QmlGreet
-PACKAGES="firefox thefuck tldr blueman neofetch bash-completion"
+PACKAGES="firefox thefuck tldr blueman bash-completion"
 ######################
 
 ######################
@@ -19,7 +19,7 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 # Other Packages required
 ######################
 PACKAGES=" $PACKAGES sway waybar swaylock wlogout"          # sway and sway related (bar, lock, logou menu)
-PAKCAGES=" $PACKAGES polkit lxpolkit qtkeychain gnome-keyring gnome-keyring-pam seahorse"            # polkit and qtkeychain for 1password and nextcloud
+PAKCAGES=" $PACKAGES polkit lxpolkit gnome-keyring gnome-keyring-pam seahorse"            # polkit and qtkeychain for 1password and nextcloud
 PACKAGES=" $PACKAGES rofi"                                  # Menu for sway
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
@@ -84,7 +84,7 @@ dnf upgrade --refresh -y
 # Installing necessary packages
 ######################
 logMe "Installing sway and other prerequisites"
-dnf install -y $PACKAGES
+dnf install -y $PACKAGES --skip-unavailable
 sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 sudo dnf groupupdate -y sound-and-video
 sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
