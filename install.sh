@@ -20,7 +20,7 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 PACKAGES=" $PACKAGES sway waybar swaylock wlogout"          # sway and sway related (bar, lock, logou menu)
 PAKCAGES=" $PACKAGES polkit lxpolkit gnome-keyring gnome-keyring-pam seahorse"            # polkit and qtkeychain for 1password and nextcloud
-PACKAGES=" $PACKAGES rofi"                                  # Menu for sway
+PACKAGES=" $PACKAGES rofi-wayland"                                  # Menu for sway
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
 PACKAGES=" $PACKAGES light gammastep"                       # Brightness manager and gamma changer
@@ -92,11 +92,11 @@ sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 ######################
 # If running in qemu then set the correct variables to run sway
 ######################
-if hostnamectl | grep -q "Virtualization: kvm"; then
-    logMe "[INFO] Running on QEMU VM. configuring settings to run sway correctly"
-    echo "export LIBGL_ALWAYS_SOFTWARE=true" >> $USERDIR/.bashrc
-    echo "export WLR_NO_HARDWARE_CURSORS=1" >> $USERDIR/.bashrc
-fi
+# if hostnamectl | grep -q "Virtualization: kvm"; then
+#     logMe "[INFO] Running on QEMU VM. configuring settings to run sway correctly"
+#     echo "export LIBGL_ALWAYS_SOFTWARE=true" >> $USERDIR/.bashrc
+#     echo "export WLR_NO_HARDWARE_CURSORS=1" >> $USERDIR/.bashrc
+# fi
 
 ######################
 # Installing flathub and flatpaks
