@@ -30,7 +30,7 @@ PACKAGES=" $PACKAGES grim slurp"                            # screenshot and reg
 PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
 PACKAGES=" $PACKAGES tuigreet greetd"                       # login manager
 PACKAGES=" $PACKAGES alacritty foot nautilus nextcloud-client nextcloud-client-nautilus flatpak"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
-PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar" # prerequisites for installation of packages later
+PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar mozilla-fira-sans-fonts fira-code-fonts" # prerequisites for installation of packages later
 
 ######################
 # Making sure the user running has root privileges
