@@ -24,13 +24,14 @@ PACKAGES=" $PACKAGES rofi-wayland"                                  # Menu for s
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
 PACKAGES=" $PACKAGES brightnessctl gammastep"               # Brightness manager and gamma changer
+PACKAGES=" $PACKAGES playerctl"                             # Player buttons manager
 PACKAGES=" $PACKAGES pavucontrol"                           # audio devices manager
 PACKAGES=" $PACKAGES network-manager-applet"                # network manager
 PACKAGES=" $PACKAGES grim slurp"                            # screenshot and region selection tools
 PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
 PACKAGES=" $PACKAGES tuigreet greetd"                       # login manager
-PACKAGES=" $PACKAGES alacritty foot nautilus nextcloud-client nextcloud-client-nautilus flatpak"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
-PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar mozilla-fira-sans-fonts fira-code-fonts" # prerequisites for installation of packages later
+PACKAGES=" $PACKAGES foot nautilus nextcloud-client nextcloud-client-nautilus flatpak"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
+PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar mozilla-fira-sans-fonts fira-code-fonts galculator google-noto-fonts-all" # prerequisites for installation of packages later
 
 ######################
 # Making sure the user running has root privileges
