@@ -5,7 +5,7 @@
 
 ######################
 # Edit these variables to customize your installation
-# packages that will be installed additionally to sway and QmlGreet
+# packages that will be installed additionally to labwc 
 PACKAGES="firefox thefuck tldr blueman bash-completion"
 ######################
 
@@ -18,9 +18,9 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 # Other Packages required
 ######################
-PACKAGES=" $PACKAGES sway waybar swaylock wlogout"          # sway and sway related (bar, lock, logou menu)
+PACKAGES=" $PACKAGES labwc waybar swaylock wlogout wlop sfwbar"          # labwc and labwc related (bar, lock, logou menu)
 PAKCAGES=" $PACKAGES polkit lxpolkit gnome-keyring gnome-keyring-pam seahorse"            # polkit and qtkeychain for 1password and nextcloud
-PACKAGES=" $PACKAGES rofi-wayland"                                  # Menu for sway
+PACKAGES=" $PACKAGES rofi-wayland"                                  # Menu for labwc
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
 PACKAGES=" $PACKAGES brightnessctl gammastep"               # Brightness manager and gamma changer
@@ -84,7 +84,7 @@ dnf upgrade --refresh -y
 ######################
 # Installing necessary packages
 ######################
-logMe "Installing sway and other prerequisites"
+logMe "Installing labwc and other prerequisites"
 dnf install -y $PACKAGES --skip-unavailable
 dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
@@ -117,7 +117,7 @@ systemctl set-default graphical.target
 systemctl enable greetd
 # to revert to the tty login
 # systemctl set-default multi-user.target
-sed -i 's/^command.*/command = "tuigreet --cmd sway"/' /etc/greetd/config.toml
+sed -i 's/^command.*/command = "tuigreet --cmd labwc"/' /etc/greetd/config.toml
 
 ######################
 # if running on a laptop, install the CPU frequency tool
