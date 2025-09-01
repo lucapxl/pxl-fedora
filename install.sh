@@ -19,7 +19,7 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 # Other Packages required
 ######################
 PACKAGES=" $PACKAGES labwc waybar swaylock wlogout wlop sfwbar"          # labwc and labwc related (bar, lock, logou menu)
-PAKCAGES=" $PACKAGES polkit lxpolkit gnome-keyring gnome-keyring-pam seahorse"            # polkit and qtkeychain for 1password and nextcloud
+PAKCAGES=" $PACKAGES polkit lxpolkit seahorse lxqt-policykit"            # polkit and qtkeychain for 1password and nextcloud
 PACKAGES=" $PACKAGES rofi-wayland"                                  # Menu for labwc
 PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
