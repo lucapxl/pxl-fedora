@@ -4,34 +4,32 @@
 # Date  2025-08-08
 
 ######################
-# Edit these variables to customize your installation
-# packages that will be installed additionally to labwc 
-PACKAGES="firefox thefuck tldr blueman bash-completion"
-######################
-
-######################
 # Defining some variables needed during the installation
 ######################
 USERDIR=$(echo "/home/$SUDO_USER")
 TOOLSDIR=$(echo "$USERDIR/_tools")
 
 ######################
-# Other Packages required
+# Packages
 ######################
-PACKAGES=" $PACKAGES labwc waybar swaylock wlogout wlop sfwbar xorg-x11-server-Xwayland"          # labwc and labwc related (bar, lock, logou menu)
-PACKAGES=" $PACKAGES gnome-keyring"            # polkit and qtkeychain for 1password and nextcloud
-PACKAGES=" $PACKAGES rofi-wayland"                                  # Menu for labwc
-PACKAGES=" $PACKAGES wdisplays kanshi"                      # Graphical monitor manager and profile manager
-PACKAGES=" $PACKAGES dunst"                                 # Graphical Notification manager
-PACKAGES=" $PACKAGES brightnessctl gammastep"               # Brightness manager and gamma changer
-PACKAGES=" $PACKAGES playerctl"                             # Player buttons manager
-PACKAGES=" $PACKAGES pavucontrol"                           # audio devices manager
-PACKAGES=" $PACKAGES nmtui"                # network manager
-PACKAGES=" $PACKAGES grim slurp swaybg"                            # screenshot and region selection tools
-PACKAGES=" $PACKAGES papirus-icon-theme"                    # icon package
-PACKAGES=" $PACKAGES tuigreet greetd"                       # login manager
-PACKAGES=" $PACKAGES foot nautilus nextcloud-client nextcloud-client-nautilus flatpak"  # terminal, file manager, nextcloud and file manager plugin for nextcloud
-PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make tar mozilla-fira-sans-fonts fira-code-fonts galculator google-noto-fonts-all" # prerequisites for installation of packages later
+PACKAGES="firefox thefuck tldr blueman bash-completion"             # basic tools
+PACKAGES=" $PACKAGES labwc xorg-x11-server-Xwayland"                # labwc and Xwayland related
+PACKAGES=" $PACKAGES waybar swaylock wlogout wlopm chayang sfwbar"  # main tools (bar, lock screen, logout menu, brightness manager, wallpaper manager))
+PACKAGES=" $PACKAGES gnome-keyring"                                 # keychain for KeePassXC, SSH keys and nextcloud
+PACKAGES=" $PACKAGES fuzzel"                                  # Menu for labwc
+PACKAGES=" $PACKAGES wdisplays kanshi"                              # Graphical monitor manager and profile manager
+PACKAGES=" $PACKAGES dunst"                                         # Graphical Notification manager
+PACKAGES=" $PACKAGES brightnessctl gammastep"                       # Brightness manager and gamma changer
+PACKAGES=" $PACKAGES playerctl"                                     # Player buttons manager
+PACKAGES=" $PACKAGES pavucontrol"                                   # audio devices manager
+PACKAGES=" $PACKAGES nmtui"                                         # network manager
+PACKAGES=" $PACKAGES grim slurp swaybg"                             # screenshot and region selection tools
+PACKAGES=" $PACKAGES papirus-icon-theme"                            # icon package
+PACKAGES=" $PACKAGES tuigreet greetd"                               # login manager
+PACKAGES=" $PACKAGES foot nautilus flatpak galculator tar"          # terminal, file manager, flatpak caltulator and tar
+PACKAGES=" $PACKAGES nextcloud-client nextcloud-client-nautilus"    # nextcloud and file manager plugin
+PACKAGES=" $PACKAGES adwaita-mono-fonts adwaita-sans-fonts rsms-inter-fonts" # fonts
+PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make" # prerequisites for installation of packages later
 
 ######################
 # Making sure the user running has root privileges
@@ -51,14 +49,10 @@ fi
 ######################
 function logMe {
     echo ""
-    echo ""
-    echo "============================================================"
     echo "============================================================"
     echo "==="
     echo "===" $1
     echo "==="
-    echo "============================================================"
-    echo "============================================================"
     sleep 3
 }
 
