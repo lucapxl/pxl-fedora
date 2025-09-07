@@ -130,7 +130,11 @@ logMe "[INFO] applying config files"
 cd $TOOLSDIR
 git clone https://github.com/lucapxl/dotconfig.git
 cd dotconfig/files
-cp -R  $TOOLSDIR/dotconfig/files/* $USERDIR/.config/
+mkdir -p $USERDIR/.config/
+cp -R $TOOLSDIR/dotconfig/files/config/* $USERDIR/.config/
+
+mkdir -p $USERDIR/.themes/
+cp -R $TOOLSDIR/dotconfig/files/themes/* $USERDIR/.themes/
 
 ######################
 # recursively fix ownership for .config directory
