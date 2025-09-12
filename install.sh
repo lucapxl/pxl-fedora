@@ -12,22 +12,22 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 # Packages
 ######################
-PACKAGES="firefox thefuck tldr blueman bash-completion"             # basic tools
-PACKAGES=" $PACKAGES labwc xorg-x11-server-Xwayland"                # labwc and Xwayland related
-PACKAGES=" $PACKAGES waybar swaylock wlogout wlopm chayang sfwbar"  # main tools (bar, lock screen, logout menu, brightness manager, wallpaper manager))
-PACKAGES=" $PACKAGES gnome-keyring gnome-keyring-pam"               # keychain for KeePassXC, SSH keys and nextcloud
-PACKAGES=" $PACKAGES fuzzel"                                        # Menu for labwc
-PACKAGES=" $PACKAGES wdisplays kanshi"                              # Graphical monitor manager and profile manager
-PACKAGES=" $PACKAGES dunst"                                         # Graphical Notification manager
-PACKAGES=" $PACKAGES brightnessctl gammastep"                       # Brightness manager and gamma changer
-PACKAGES=" $PACKAGES playerctl"                                     # Player buttons manager
-PACKAGES=" $PACKAGES pavucontrol"                                   # audio devices manager
-PACKAGES=" $PACKAGES nmtui"                                         # network manager
-PACKAGES=" $PACKAGES grim slurp swaybg"                             # screenshot and region selection tools
-PACKAGES=" $PACKAGES papirus-icon-theme"                            # icon package
-PACKAGES=" $PACKAGES tuigreet greetd"                               # login manager
-PACKAGES=" $PACKAGES foot nautilus flatpak galculator tar"          # terminal, file manager, flatpak caltulator and tar
-PACKAGES=" $PACKAGES nextcloud-client nextcloud-client-nautilus"    # nextcloud and file manager plugin
+PACKAGES="firefox thefuck tldr blueman bash-completion bash-color-prompt" # basic tools
+PACKAGES=" $PACKAGES labwc xorg-x11-server-Xwayland"                      # labwc and Xwayland related
+PACKAGES=" $PACKAGES waybar swaylock wlogout wlopm chayang sfwbar"        # main tools (bar, lock screen, logout menu, brightness manager, wallpaper manager))
+PACKAGES=" $PACKAGES gnome-keyring gnome-keyring-pam"                     # keychain for KeePassXC, SSH keys and nextcloud
+PACKAGES=" $PACKAGES fuzzel"                                              # Menu for labwc
+PACKAGES=" $PACKAGES wdisplays kanshi"                                    # Graphical monitor manager and profile manager
+PACKAGES=" $PACKAGES dunst"                                               # Graphical Notification manager
+PACKAGES=" $PACKAGES brightnessctl gammastep"                             # Brightness manager and gamma changer
+PACKAGES=" $PACKAGES playerctl"                                           # Player buttons manager
+PACKAGES=" $PACKAGES pavucontrol"                                         # audio devices manager
+PACKAGES=" $PACKAGES nmtui"                                               # network manager
+PACKAGES=" $PACKAGES grim slurp swaybg"                                   # screenshot and region selection tools
+PACKAGES=" $PACKAGES papirus-icon-theme"                                  # icon package
+PACKAGES=" $PACKAGES tuigreet greetd"                                     # login manager
+PACKAGES=" $PACKAGES foot nautilus flatpak galculator tar"                # terminal, file manager, flatpak caltulator and tar
+PACKAGES=" $PACKAGES nextcloud-client nextcloud-client-nautilus"          # nextcloud and file manager plugin
 PACKAGES=" $PACKAGES adwaita-mono-fonts adwaita-sans-fonts rsms-inter-fonts" # fonts
 PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make" # prerequisites for installation of packages later
 
