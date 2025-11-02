@@ -116,12 +116,12 @@ sed -i 's/^command.*/command = "tuigreet --cmd labwc"/' /etc/greetd/config.toml
 ######################
 # if running on a laptop, install the CPU frequency tool
 ######################
-if hostnamectl | grep -q "Chassis: laptop"; then
-    logMe "[INFO] Running on laptop, installing cpufreq tool"
-    cd $TOOLSDIR
-    git clone https://github.com/AdnanHodzic/auto-cpufreq.git
-    cd auto-cpufreq && ./auto-cpufreq-installer --install
-fi
+# if hostnamectl | grep -q "Chassis: laptop"; then
+#     logMe "[INFO] Running on laptop, installing cpufreq tool"
+#     cd $TOOLSDIR
+#     git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+#     cd auto-cpufreq && ./auto-cpufreq-installer --install
+# fi
 
 ######################
 # Download and apply config files
