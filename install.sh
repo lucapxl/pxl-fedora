@@ -28,7 +28,7 @@ PACKAGES=" $PACKAGES material-design-dark"                                # icon
 PACKAGES=" $PACKAGES tuigreet greetd"                                     # login manager
 PACKAGES=" $PACKAGES foot foot-terminfo nautilus flatpak galculator tar"  # terminal, file manager, flatpak caltulator and tar
 PACKAGES=" $PACKAGES nextcloud-client nextcloud-client-nautilus"          # nextcloud and file manager plugin
-PACKAGES=" $PACKAGES adwaita-mono-fonts adwaita-sans-fonts rsms-inter-fonts" # fonts
+PACKAGES=" $PACKAGES adwaita-mono-fonts adwaita-sans-fonts rsms-inter-fonts jetbrains-mono-fonts jetbrains-mono-nl-fonts" # fonts
 PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make" # prerequisites for installation of packages later
 
 ######################
