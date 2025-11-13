@@ -12,7 +12,7 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 # Packages
 ######################
-PACKAGES="firefox thefuck tldr blueman bash-completion bash-color-prompt" # basic tools
+PACKAGES="firefox thefuck tldr wget unzip blueman bash-completion bash-color-prompt" # basic tools
 PACKAGES=" $PACKAGES labwc xorg-x11-server-Xwayland"                      # labwc and Xwayland related
 PACKAGES=" $PACKAGES waybar swaylock wlogout wlopm"                       # main tools (bar, lock screen, logout menu, brightness manager, wallpaper manager))
 PACKAGES=" $PACKAGES gnome-keyring gnome-keyring-pam"                     # keychain for KeePassXC, SSH keys and nextcloud
@@ -85,13 +85,15 @@ sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-o
 sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
 ######################
-# If running in qemu then set the correct variables to run sway
+# Installing nerdfonts
 ######################
-# if hostnamectl | grep -q "Virtualization: kvm"; then
-#     logMe "[INFO] Running on QEMU VM. configuring settings to run sway correctly"
-#     echo "export LIBGL_ALWAYS_SOFTWARE=true" >> $USERDIR/.bashrc
-#     echo "export WLR_NO_HARDWARE_CURSORS=1" >> $USERDIR/.bashrc
-# fi
+logMe "Installing nerdfonts"
+TEMP_DIR=$(mktemp -d)
+wget -O "$TEMP_DIR/font.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SourceCodePro.zip"
+unzip "$TEMP_DIR/font.zip" -d "$TEMP_DIR"
+sudo mv "$TEMP_DIR"/*.{ttf,otf} /usr/share/fonts/
+fc-cache -f -v
+rm -rf "$TEMP_DIR"
 
 ######################
 # Installing flathub and flatpaks
