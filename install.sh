@@ -81,8 +81,8 @@ dnf upgrade --refresh -y
 logMe "Installing labwc and other prerequisites"
 dnf install -y $PACKAGES --skip-unavailable
 dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
-sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
 ######################
 # Installing nerdfonts
@@ -91,7 +91,8 @@ logMe "Installing nerdfonts"
 TEMP_DIR=$(mktemp -d)
 wget -O "$TEMP_DIR/font.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/SourceCodePro.zip"
 unzip "$TEMP_DIR/font.zip" -d "$TEMP_DIR"
-sudo mv "$TEMP_DIR"/*.{ttf,otf} /usr/share/fonts/
+mkdir -p /usr/share/fonts/SourceCodePro
+mv "$TEMP_DIR"/*.{ttf,otf} /usr/share/fonts/SourceCodePro/
 fc-cache -f -v
 rm -rf "$TEMP_DIR"
 
@@ -99,7 +100,7 @@ rm -rf "$TEMP_DIR"
 # Installing flathub and flatpaks
 ######################
 logMe "[INFO] Installing Flathub"
-sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub org.keepassxc.KeePassXC -y
 flatpak install flathub io.github.flattool.Warehouse -y
 flatpak install flathub org.dupot.easyflatpak -y
