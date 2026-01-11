@@ -12,7 +12,7 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 # Packages
 ######################
-PACKAGES="firefox thefuck tldr wget unzip blueman bash-completion bash-color-prompt" # basic tools
+PACKAGES="firefox thefuck tldr wget unzip blueman bash-completion bash-color-prompt neovim" # basic tools
 PACKAGES=" $PACKAGES labwc xorg-x11-server-Xwayland"                      # labwc and Xwayland related
 PACKAGES=" $PACKAGES waybar swaylock wlogout wlopm"                       # main tools (bar, lock screen, logout menu, brightness manager, wallpaper manager))
 PACKAGES=" $PACKAGES gnome-keyring gnome-keyring-pam"                     # keychain for KeePassXC, SSH keys and nextcloud
@@ -26,7 +26,7 @@ PACKAGES=" $PACKAGES nmtui"                                               # netw
 PACKAGES=" $PACKAGES grim slurp swaybg"                                   # screenshot and region selection tools
 PACKAGES=" $PACKAGES material-design-dark"                                # icon package
 PACKAGES=" $PACKAGES tuigreet greetd"                                     # login manager
-PACKAGES=" $PACKAGES foot foot-terminfo nautilus flatpak galculator tar"  # terminal, file manager, flatpak caltulator and tar
+PACKAGES=" $PACKAGES alacritty  nautilus flatpak galculator tar"          # terminal, file manager, flatpak caltulator and tar
 PACKAGES=" $PACKAGES nextcloud-client nextcloud-client-nautilus"          # nextcloud and file manager plugin
 PACKAGES=" $PACKAGES adwaita-mono-fonts adwaita-sans-fonts rsms-inter-fonts jetbrains-mono-fonts jetbrains-mono-nl-fonts" # fonts
 PACKAGES=" $PACKAGES pam-devel libX11-devel gcc appstream-data python-devel dmidecode make" # prerequisites for installation of packages later
