@@ -14,9 +14,9 @@ TOOLSDIR=$(echo "$USERDIR/_tools")
 ######################
 PACKAGES="firefox thefuck tldr wget unzip blueman bash-completion bash-color-prompt neovim" # basic tools
 PACKAGES=" $PACKAGES labwc xorg-x11-server-Xwayland"                      # labwc and Xwayland related
-PACKAGES=" $PACKAGES waybar swaylock wlogout wlopm"                       # main tools (bar, lock screen, logout menu, brightness manager, wallpaper manager))
+PACKAGES=" $PACKAGES waybar swaylock wlopm"                               # main tools (bar, lock screen, logout menu, brightness manager, wallpaper manager))
 PACKAGES=" $PACKAGES gnome-keyring gnome-keyring-pam"                     # keychain for KeePassXC, SSH keys and nextcloud
-PACKAGES=" $PACKAGES fuzzel"                                              # Menu for labwc
+PACKAGES=" $PACKAGES rofi"                                                # Menu for labwc
 PACKAGES=" $PACKAGES wdisplays kanshi"                                    # Graphical monitor manager and profile manager
 PACKAGES=" $PACKAGES dunst"                                               # Graphical Notification manager
 PACKAGES=" $PACKAGES brightnessctl gammastep"                             # Brightness manager and gamma changer
